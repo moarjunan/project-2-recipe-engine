@@ -1,5 +1,6 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const routes = require('./controllers');
 
 const sequelize = require('./config/connection');
 
@@ -14,9 +15,11 @@ app.set('view engine', 'handlebars');
 
 //TODO: Use the Express Router for more detailed routes
 
-app.get('/', function (req, res) {
-    res.render('home');
-});
+// app.get('/', function (req, res) {
+//     res.render('home');
+// });
+
+app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => {
