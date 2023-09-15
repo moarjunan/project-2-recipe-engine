@@ -15,7 +15,7 @@ app.set('view engine', 'handlebars');
 //TODO: Use the Express Router for more detailed routes
 
 app.get('/', function (req, res) {
-    res.render('home');
+    res.send('home');
 });
 
 sequelize.sync({ force: false }).then(() => {
