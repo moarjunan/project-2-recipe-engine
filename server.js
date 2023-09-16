@@ -1,6 +1,7 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const routes = require('./controllers');
+const session = require('express-session');
 
 
 var db = require("./config/connection");
@@ -9,6 +10,14 @@ const dbModels = require('./models');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+app.use(
+  session({
+    secret: process.env.SECRET, // Replace with a secret key
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 
 app.use(express.static('public'));
