@@ -1,5 +1,6 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const routes = require('./controllers');
 
 
 var db = require("./config/connection");
@@ -18,9 +19,11 @@ app.set('view engine', 'handlebars');
 
 
 
-app.get('/', function (req, res) {
-    res.render('home');
-});
+// app.get('/', function (req, res) {
+//     res.render('home');
+// });
+
+app.use(routes);
 
 db.sync({ force: true }).then(() => {
     app.listen(PORT, () => {

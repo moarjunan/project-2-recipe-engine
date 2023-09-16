@@ -1,39 +1,70 @@
 
+// const Favorite = require('./favorites');
+// const Recipe = require('./recipe');
+// const User = require('./user');
+// const Rating = require('./rating');
+
+
+
+// Recipe.belongsToMany(Favorite, {
+//   // Define the third table needed to store the foreign keys
+//   foreignKey : "recipe_id",
+//   through: {
+//     model: User,
+//     unique: false
+//   }
+// });
+
+// User.belongsToMany(Favorite, {
+//   // Define the third table needed to store the foreign keys
+//   foreignKey : "favorite_username",
+//   through: {
+//     model: Recipe,
+//     unique: false
+//   }
+// });
+
+// Rating.belongsToMany(Recipe, {
+//   // Define the third table needed to store the foreign keys
+//   foreignKey : "recipe_id",
+//   through: {
+//     model: User,
+//     unique: false
+//   }
+// });
+
+
+// module.exports = { Favorite, Recipe, User, Rating};
 const Favorite = require('./favorites');
 const Recipe = require('./recipe');
-const Users = require('./user');
+const User = require('./user'); // Use User instead of Users
 const Rating = require('./rating');
 
-
-
 Recipe.belongsToMany(Favorite, {
-  // Define the third table needed to store the foreign keys
-  foreignKey : "recipe_id",
+  foreignKey: "recipe_id",
   through: {
-    model: Users,
+    model: User, // Use User instead of Users
     unique: false
   }
 });
 
-Users.belongsToMany(Favorite, {
-  // Define the third table needed to store the foreign keys
-  foreignKey : "favorite_username",
+User.belongsToMany(Favorite, {
+  foreignKey: "favorite_username",
   through: {
-    model: Recipe,
+    model: Recipe, // Use Recipe instead of Recipes
     unique: false
   }
 });
 
 Rating.belongsToMany(Recipe, {
-  // Define the third table needed to store the foreign keys
-  foreignKey : "recipe_id",
+  foreignKey: "recipe_id",
   through: {
-    model: Users,
+    model: User, // Use User instead of Users
     unique: false
   }
 });
 
+module.exports = { Favorite, Recipe, User, Rating };
 
-module.exports = { Favorite, Recipe, Users, Rating};
 
 
