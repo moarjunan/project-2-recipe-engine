@@ -40,6 +40,25 @@ async function fetchAPI(search) {
     return data
 
 }
+async function getIngredients(id) {
+    const url = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/' + id + '/ingredientWidget.json';
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': '6eb3a787d1msha03cc579a1e4122p1a7afajsn9b49e719e17e',
+            'X-RapidAPI-Host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
+        }
+    };
+
+    try {
+        const response = await fetch(url, options);
+        const result = await response.text();
+        console.log(result);
+        return result
+    } catch (error) {
+        console.error(error);
+    }
+}
 
 function generateHTML() {
     searchResultDiv.innerHTML = '';
@@ -62,7 +81,7 @@ function generateHTML() {
     })
 }
 
-function viewRecipe(event) {
+async function viewRecipe(event) {
 
     event.preventDefault()
 
@@ -73,10 +92,17 @@ function viewRecipe(event) {
 
     const foundItem = results.find(item => item.id === +event.target.id.split(' ')[0])
     if (foundItem) {
+        const data = await getIngredients(foundItem.id)
+        const   ingredientslist= JSON.parse(data)
+        console.log(ingredientslist)
         document.querySelector('.my-modal__content').innerHTML = `
-    <img src="${foundItem.image}" style="width:300px;" alt="">
-    <div class="flexcontainer"></div>
     <h1 class="title" style="color:green;"> ${foundItem.title}</h1>
+    <div class="innermodal">
+    <img src="${foundItem.image}" style="width:300px;height:300px;" alt="">
+    <div class="flexcontainer">${ingredientslist.ingredients.map(ing=>(
+        `<p>${ing.amount.us.value} ${ing.amount.us.unit} of ${ing.name}</p>`
+    ))}</div>
+    </div>
     `;
     } else {
         //
