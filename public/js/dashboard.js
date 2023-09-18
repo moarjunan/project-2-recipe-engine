@@ -24,7 +24,6 @@ $(document).ready(function() {
                 <img src="${element.image}" class="card-img-top" alt="Recipe Image">
                 <div class="card-body">
                     <h4 class="card-title">${element.title}</h4>
-                    <p class="card-subtitle">Dish type: ${element.dishType}</p>
                     <p class="card-text">Serves: ${element.servings}</p>
                 </div>
                 <div class="card-footer">
@@ -68,7 +67,6 @@ $(document).ready(function() {
                 <img src="${element.image}" class="card-img-top" alt="Recipe Image">
                 <div class="card-body">
                     <h4 class="card-title">${element.title}</h4>
-                    <p class="card-subtitle">Dish type: ${element.dishType}</p>
                     <p class="card-text">Serves: ${element.servings}</p>
                 </div>
                 <div class="card-footer">
@@ -106,7 +104,6 @@ $(document).ready(function() {
                     <img src="${element.image}" class="card-img-top" alt="Recipe Image">
                     <div class="card-body">
                         <h4 class="card-title">${element.title}</h4>
-                        <p class="card-subtitle">Dish type: ${element.dishType}</p>
                         <p class="card-text">Serves: ${element.servings}</p>
                     </div>
                     <div class="card-footer">
@@ -168,7 +165,7 @@ $(document).ready(function() {
                         <div class="card-body">
                             <h4 class="card-title">Notes</h4>
                             <hr>
-                            <p class="card-text">${note.note}</p>
+                            <p class="card-text">${save.note}</p>
                         </div>
                     </div>
                 </div>

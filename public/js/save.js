@@ -13,7 +13,6 @@ $(document).ready(function() {
         title: "required",
         servings: "required",
         category: "required",
-        dishType: "required",
         ingredient: "required",
         instructions: "required"
       },
@@ -21,7 +20,6 @@ $(document).ready(function() {
         title: "Please specify the title.",
         servings: "Specify how many servings this recipe makes.",
         category: "Please specify the cuisine type.",
-        dishType: "Please specify the type of dish.",
         ingredient: "Please specify ingredient.",
         instructions: "Please enter the instructions for making the recipe."
       }
@@ -50,10 +48,6 @@ $(document).ready(function() {
             .val()
             .trim(),
           category: $("#category").val(),
-          dishType: $("#dishType").val(),
-          source: $("#source")
-            .val()
-            .trim(),
           instructions: $("#instructions")
             .val()
             .trim(),

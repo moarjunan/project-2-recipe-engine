@@ -15,8 +15,6 @@ module.exports = function(sequelize, DataTypes) {
       },
       image: DataTypes.TEXT('long'),
       category: DataTypes.STRING,
-      dishType: DataTypes.STRING,
-      source: DataTypes.STRING
     });
   
     Recipe.associate = function(models) {
