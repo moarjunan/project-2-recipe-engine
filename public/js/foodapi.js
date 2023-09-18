@@ -1,9 +1,9 @@
 
 
-const searchForm = document.querySelector('form');
-const searchResultDiv = document.querySelector('.search-result');
+const searchForm = document.querySelector('#searchInput');
+const searchResultDiv = document.querySelector('#recipesBody');
 const container = document.querySelector('container');
-const modal = document.querySelector('.my-modal')
+const modal = document.querySelector('.card')
 let searchQuery = '';
 const APP_KEY = '6eb3a787d1msha03cc579a1e4122p1a7afajsn9b49e719e17e';
 
