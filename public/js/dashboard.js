@@ -95,7 +95,7 @@ $(document).ready(function() {
               $("#recipesBody").empty();
               const element = response[0];
               const valuesIng = Object.values(element.ingredients);
-              $("#saveNote").data("recipeData", element);
+              $("#savefavorite").data("recipeData", element);
               $("#recipesBody").data("recipeData", element);
   
               $("#recipesBody").append(
@@ -107,7 +107,7 @@ $(document).ready(function() {
                         <p class="card-text">Serves: ${element.servings}</p>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="card-link" id="openModal">Add or Edit Note</a>
+                        <a href="#" class="card-link" id="openModal">Add or Edit favorite</a>
                         <a href="#" class="card-link">Remove from Faves</a>
                     </div>
                 </div>
@@ -157,15 +157,15 @@ $(document).ready(function() {
             })
             .then(function(element) {
               var recipeId = element.id;
-              $.get("/api/note/" + recipeId + "/" + userId).then(function(note) {
-                if (note) {
+              $.get("/api/favorite/" + recipeId + "/" + userId).then(function(favorite) {
+                if (favorite) {
                   $("#recipesBody").append(
                     `<div class="col-md-3">
-                    <div class="card large note">
+                    <div class="card large favorite">
                         <div class="card-body">
-                            <h4 class="card-title">Notes</h4>
+                            <h4 class="card-title">favorites</h4>
                             <hr>
-                            <p class="card-text">${save.note}</p>
+                            <p class="card-text">${save.favorite}</p>
                         </div>
                     </div>
                 </div>
@@ -174,9 +174,9 @@ $(document).ready(function() {
                 } else {
                   $("#recipesBody").append(
                     `<div class="col-md-3">
-                    <div class="card large note">
+                    <div class="card large favorite">
                         <div class="card-body">
-                            <h4 class="card-title">Notes</h4>
+                            <h4 class="card-title">favorites</h4>
                             <hr>
                         </div>
                     </div>
@@ -189,41 +189,41 @@ $(document).ready(function() {
         });
     });
   
-    $("#saveNote").on("click", function() {
-      var note = $("#userNotes")
+    $("#savefavorite").on("click", function() {
+      var favorite = $("#userfavorites")
         .val()
         .trim();
   
       var currentRecipe = $(this).data("recipeData");
       $.get("/user").then(function(user) {
-        var noteObj = {
-          note: note,
+        var favoriteObj = {
+          favorite: favorite,
           RecipeId: currentRecipe.id,
           UserId: user.id
         };
   
         $.ajax({
           type: "put",
-          url: "/api/note",
-          data: noteObj
+          url: "/api/favorite",
+          data: favoriteObj
         }).then(function() {
-          $("#userNotes").val(" ");
-          $.get("/api/note/" + noteObj.RecipeId + "/" + noteObj.UserId).then(
-            function(note) {
-              $("#recipesBody").data("noteData", note);
+          $("#userfavorites").val(" ");
+          $.get("/api/favorite/" + favoriteObj.RecipeId + "/" + favoriteObj.UserId).then(
+            function(favorite) {
+              $("#recipesBody").data("favoriteData", favorite);
             }
           );
         });
       });
     });
   
-    $("#deleteNote").on("click", function() {
-      var noteId = 2;
+    $("#deletefavorite").on("click", function() {
+      var favoriteId = 2;
       $.ajax({
         type: "delete",
-        url: "/api/note/" + noteId
+        url: "/api/favorite/" + favoriteId
       }).then(function() {
-        console.log("note deleted");
+        console.log("favorite deleted");
       });
     });
   
@@ -235,7 +235,7 @@ $(document).ready(function() {
       $(".modal").removeClass("is-active");
     });
   
-    $(document.body).on("click", "#saveNote", function() {
+    $(document.body).on("click", "#savefavorite", function() {
       $(".modal").removeClass("is-active");
     });
   

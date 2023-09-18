@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
     var Favorite = sequelize.define("Favorite", {
-      note: {
+      favorite: {
         type: DataTypes.TEXT,
         allowNull: false
       }
