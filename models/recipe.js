@@ -1,41 +1,38 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
-
-class Recipe extends Model {}
-
-Recipe.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      validate: {
-        len: [1]
-      }
-    },
-    cuisine: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [1]
-      }
-    },
-    ingredients: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [1]
-      }
-    }
-  },
-  {
-    sequelize,
-    timestamps: false,
-    freezeTableName: true,
-    underscored: true,
-    modelName: 'recipe'
-  }
-);
-
-module.exports = Recipe;
-
+module.exports = function(sequelize, DataTypes) {
+    var Recipe = sequelize.define("Recipe", {
+      title: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      servings: DataTypes.INTEGER,
+      ingredients: {
+        type: DataTypes.JSON,
+        allowNull: false
+      },
+      instructions: {
+        type: DataTypes.TEXT('long'),
+        allowNull: false
+      },
+      image: DataTypes.TEXT('long'),
+      category: DataTypes.STRING,
+      dishType: DataTypes.STRING,
+      source: DataTypes.STRING
+    });
+  
+    Recipe.associate = function(models) {
+      Recipe.belongsTo(models.User, {
+        foreignKey: {
+          allowNull: true
+        }
+      });
+      Recipe.belongsToMany(models.User, {
+        as: "Saves",
+        through: "Save"
+      });
+      Recipe.hasMany(models.Favorite);
+    };
+  
+    return Recipe;
+  };
+  
+  

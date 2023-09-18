@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="container">
+        <div class="section">
+            <div class="card">
+                <div class="input-group mb-3">
+                    <input class="form-control text-center" id="searchInput" type="search" placeholder="Search for recipes">
+                    <button class="btn btn-info" id="searchButton" type="button">Search</button>
+                </div>
+            </div>
+            <div class="row" id="recipesBody">
+                {{#each recipes}}
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="/js/index.js"></script>

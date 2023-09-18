@@ -1,41 +1,58 @@
-const express = require('express');
+var express = require("express");
+var app = express();
+var passport = require("passport");
+var session = require("express-session");
+var authRoutes = require("./controllers/loginRoutes");
+var apiRoutes = require("./controllers/apiRoutes");
+var htmlRoutes = require("./controllers/htmlRoutes");
+var db = require("./models");
 const exphbs = require('express-handlebars');
-const routes = require('./controllers');
-const session = require('express-session');
+
+var PORT = process.env.PORT || 3000;
 
 
-var db = require("./config/connection");
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-const dbModels = require('./models');
 
-const app = express();
-const PORT = process.env.PORT || 3001;
+app.engine(
+  "handlebars",
+  exphbs.engine({
+    defaultLayout: "main"
+  })
+);
+app.set("view engine", "handlebars");
+
 
 app.use(
   session({
-    secret: process.env.SECRET, // Replace with a secret key
-    resave: false,
+    secret: "secret", 
+    resave: true,
     saveUninitialized: true,
   })
 );
+app.use(passport.initialize());
+app.use(passport.session()); 
+app.use(express.static("public"));
 
 
-app.use(express.static('public'));
-app.use(express.json());
+app.use(authRoutes);
+app.use(apiRoutes);
+app.use(htmlRoutes);
 
-app.engine('handlebars', exphbs.engine());
-app.set('view engine', 'handlebars');
+require("./config/passport.js")(passport, db.User);
+
+var syncOptions = { force: false };
 
 
 
-// app.get('/', function (req, res) {
-//     res.render('home');
-// });
-
-app.use(routes);
-
-db.sync({ force: true }).then(() => {
-    app.listen(PORT, () => {
-      console.log(`App listening on port http://localhost:${PORT}`);
-    });
+db.sequelize.sync(syncOptions).then(function() {
+  app.listen(PORT, function() {
+    console.log(
+      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
+      PORT,
+      PORT
+    );
   });
+});
+module.exports = app;

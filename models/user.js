@@ -1,54 +1,47 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
-
-
-  class User extends Model {}
-
-  User.init({
-    username: {
+module.exports = function(sequelize, DataTypes) {
+  var User = sequelize.define("User", {
+    firstName: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: 'userName',
-      validate: {
-        len: [4]
-      }
+      allowNull: false
     },
-    password: {
+    lastName: {
       type: DataTypes.STRING,
-      allowNull: false,
-      len: [4]
+      allowNull: false
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      len: [4]
+      unique: true,
+      validate: {
+        isEmail: true
+      }
+    },
+    userName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        len: [1, 20]
+      }
+    },
+    password: {
+      type: DataTypes.STRING(256),
+      allowNull: null,
+      unique: true,
+      validate: {
+        len: [1]
+      }
     }
-    ,
-    indianLike: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0
-    },
-    indianDislike: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0
-    },
-    italianLike: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0
-    },
-    italianDislike: {
-      type: DataTypes.INTEGER,
-      defaultValue: 0
-    }
+  });
 
-  }, {
-    sequelize,
-    timestamps: false,
-    freezeTableName: true,
-    underscored: true,
-    modelName: 'user',
-  }
-);
+  User.associate = function(models) {
+    User.hasMany(models.Recipe);
+    User.belongsToMany(models.Recipe, {
+      as: "Saves",
+      through: "Save"
+    });
+    User.hasMany(models.Favorite);
+  };
 
-module.exports = User;
-
+  return User;
+};

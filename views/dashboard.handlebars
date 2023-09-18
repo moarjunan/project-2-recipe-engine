@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="container">
+        <div class="container">
+            <div class="input-group mb-3">
+                <input class="form-control" id="searchInput" type="search" placeholder="Search for recipes">
+                <button class="btn btn-info" id="searchButton" type="button">Search</button>
+            </div>
+        </div>
+        <div class="container text-center">
+            <h2>Hello {{name.firstName}}!</h2>
+            <h2>Your Favorite Recipes!</h2>
+            <br>
+        </div>
+        <div class="row" id="recipesBody">
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="recipeNotes">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Notes</h5>
+                <button class="btn-close" aria-label="close" id="closeModal" type="button"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="userNotes" class="form-label">My Notes</label>
+                    <textarea class="form-control required" id="userNotes" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-info" id="saveNote" type="button">Save</button>
+                <button class="btn btn-secondary" id="closeModal" type="button">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="/js/dashboard.js"></script>
