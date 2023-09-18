@@ -28,7 +28,7 @@ app.set("view engine", "handlebars");
 app.use(
   session({
     secret: "secret", 
-    resave: false,
+    resave: true,
     saveUninitialized: true,
   })
 );
