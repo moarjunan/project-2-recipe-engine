@@ -50,7 +50,7 @@ var syncOptions = { force: false };
 
 
 
-db.sequelize.sync(syncOptions,{force:true}).then(function() {
+db.sequelize.sync(syncOptions,{force:false}).then(function() {
   app.listen(PORT, function() {
     dbFill.populate(db);
     console.log(
