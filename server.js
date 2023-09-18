@@ -7,7 +7,6 @@ var apiRoutes = require("./controllers/apiRoutes");
 var htmlRoutes = require("./controllers/htmlRoutes");
 var db = require("./models");
 const exphbs = require('express-handlebars');
-var dbFill = require("./populateDB");
 
 var PORT = process.env.PORT || 3000;
 
@@ -50,9 +49,8 @@ var syncOptions = { force: false };
 
 
 
-db.sequelize.sync(syncOptions,{force:true}).then(function() {
+db.sequelize.sync(syncOptions).then(function() {
   app.listen(PORT, function() {
-    dbFill.populate(db);
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
       PORT,
