@@ -93,15 +93,15 @@ async function viewRecipe(event) {
     const foundItem = results.find(item => item.id === +event.target.id.split(' ')[0])
     if (foundItem) {
         const data = await getIngredients(foundItem.id)
-        const   ingredientslist= JSON.parse(data)
+        const ingredientslist = JSON.parse(data)
         console.log(ingredientslist)
         document.querySelector('.my-modal__content').innerHTML = `
     <h1 class="title" style="color:green;"> ${foundItem.title}</h1>
     <div class="innermodal">
     <img src="${foundItem.image}" style="width:300px;height:300px;" alt="">
-    <div class="flexcontainer">${ingredientslist.ingredients.map(ing=>(
-        `<p>${ing.amount.us.value} ${ing.amount.us.unit} of ${ing.name}</p>`
-    ))}</div>
+    <div class="flexcontainer">${ingredientslist.ingredients.map(ing => (
+            `<p>${ing.amount.us.value} ${ing.amount.us.unit} of ${ing.name}</p>`
+        ))}</div>
     </div>
     `;
     } else {
@@ -109,8 +109,6 @@ async function viewRecipe(event) {
     }
 
 }
-
-
 
 
 
