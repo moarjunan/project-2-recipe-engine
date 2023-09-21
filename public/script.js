@@ -5,7 +5,7 @@ let searchQuery = '';
 const APP_KEY = '6eb3a787d1msha03cc579a1e4122p1a7afajsn9b49e719e17e';
 
 
-searchForm.addEventListener('submit',(e)=>{
+searchForm.addEventListener('sunmit',(e)=>{
     e.preventDefault();
     searchQuery = e.target.querySelector('input').value;
     fetchAPI();
