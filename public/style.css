@@ -99,22 +99,23 @@ form ion-icon {
   background-color: rgba(0, 0, 0, 0.3);
 }
 .my-modal__content {
-  width: 500px;
-  height: 500px;
+  width: 700px;
+  height: 700px;
   border-radius: 10px;
   background-color: #fff;
   padding: 15px 30px;
   position: absolute;
-  left: 50%;
-  top: 50%;
+  left: 40%;
+  top: 40%;
   transform: translate(-50%, -50%);
-  display: flex;
+  display:flex;
   /* flex-direction: row; */
   align-items: center;
   justify-content: space-evenly;
 }
 .innermodal{
   display: flex;
+  align-items: normal;
 }
 .hidden {
   display: none;
